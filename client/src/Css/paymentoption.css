@@ -1,0 +1,46 @@
+/* paymentoption.css */
+
+.payment-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.payment-container h3 {
+  text-align: center;
+  color: #333;
+}
+
+.payment-container h4 {
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.payment-container h5 {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.payment-dropdown {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  height: 100px;
+}
+
+.payment-dropdown a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 8px;
+}
+
+.payment-dropdown a:hover {
+  background-color: #f0f0f0;
+}

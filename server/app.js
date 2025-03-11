@@ -7,7 +7,9 @@ const UserRouter = require("./Routes/UserRoutes");
 const app = express();
 
 // middleware
-app.use("/users", UserRouter); //(req, res, next)=>{
+app.use(express.json());
+app.use("/users", UserRouter);
+app.use("/employees", EmployeeRouter); //(req, res, next)=>{
 //res.send("It Is Working");
 //})
 

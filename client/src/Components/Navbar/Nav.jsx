@@ -1,10 +1,12 @@
 import React from "react";
 import "../../Css/nav.css";
-// import { Link } from "react-router-dom";
+import nav from "../../assets/nav.png";
+// import { Link } from "react-router-dom"; c4e1f6
 
 function Nav() {
   return (
     <div className="navbar">
+      <img src={nav} />
       <ul>
         <li>
           <a className="nav" href="/">
@@ -59,6 +61,11 @@ function Nav() {
           </a>
         </li>
         <li>
+          <a className="nav" href="/myaccount">
+            My Account
+          </a>
+        </li>
+        <li>
           <a className="nav" href="/login">
             Login
           </a>
@@ -74,28 +81,3 @@ function Nav() {
 }
 
 export default Nav;
-// //<style>
-// ul {
-//     list-style-type: none;
-//     margin: 0;
-//     padding: 0;
-//     overflow: hidden;
-//     background-color: #333;
-//   }
-
-//   li {
-//     float: left;
-//   }
-
-//   li a {
-//     display: block;
-//     color: white;
-//     text-align: center;
-//     padding: 14px 16px;
-//     text-decoration: none;
-//   }
-
-//   li a:hover {
-//     background-color: #111;
-//   }
-//   </style>

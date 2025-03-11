@@ -1,0 +1,68 @@
+/* Centering the address form container */
+.address-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f8ff;
+}
+
+/* Styling the address form box */
+.address-box {
+  width: 350px;
+  background: rgba(196, 225, 246, 0.5);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input fields */
+.address-box input,
+.address-box select {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.address-box button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.address-box button[type="submit"] {
+  background-color: #ffe700;
+}
+
+.address-box button[type="submit"]:hover {
+  background-color: #e6d600;
+}
+
+.address-box button[type="cancel"] {
+  background-color: red;
+  color: rgb(9, 8, 8);
+}
+
+.address-box button[type="cancel"]:hover {
+  background-color: red;
+}
+
+/* Labels */
+.address-box label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+}

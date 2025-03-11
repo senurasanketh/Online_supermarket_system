@@ -1,0 +1,92 @@
+/* Center the form container */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f8ff; /* Light blue background */
+}
+
+/* Signup form box */
+.signup-box {
+  width: 90%; /* Make it responsive */
+  max-width: 350px; /* Limit width for larger screens */
+  background: rgba(196, 225, 246, 0.8); /* Light blue with some opacity */
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Form Title */
+.signup-box h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Label styles */
+.signup-box label {
+  display: block;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #555;
+  text-align: left;
+}
+
+/* Input field styles */
+.signup-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Button Styles */
+.signup-box button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffe700;
+  color: rgb(11, 10, 10);
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.signup-box button:hover {
+  background-color: #ffe700;
+}
+
+/* Link styling */
+.signup-box p {
+  margin-top: 10px;
+}
+
+.signup-box a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signup-box a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .signup-box {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .signup-box input {
+    font-size: 14px;
+  }
+
+  .signup-box button {
+    font-size: 16px;
+  }
+}
