@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const employeeSchema = new Schema({
+const supplierSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -10,7 +10,15 @@ const employeeSchema = new Schema({
     type: String,
     required: true,
   },
-  address: {
+  phoneno: {
+    type: String,
+    required: true,
+  },
+  item: {
+    type: String,
+    required: true,
+  },
+  city: {
     type: String,
     required: true,
   },
@@ -18,17 +26,9 @@ const employeeSchema = new Schema({
     type: String,
     required: true,
   },
-  age: {
-    type: String,
-    required: true,
-  },
-  Role: {
-    type: String,
-    required: true,
-  },
   status: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
-module.exports = mongoose.model("EmployeeModel", employeeSchema);
+module.exports = mongoose.model("SupplierModel", supplierSchema);

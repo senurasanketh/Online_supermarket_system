@@ -1,0 +1,102 @@
+.body,
+html {
+  background-color: #dde4ea; /* Full-page background */
+}
+/* Centering the payment container */
+.payment-container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #dde4ea;
+  width: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+/* Styling the payment form */
+.payment-form {
+  background: rgba(196, 225, 246);
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Form headings */
+.payment-form h3 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Form labels */
+.payment-form label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* Input fields */
+.payment-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #ffff; /* Light transparent input background */
+}
+
+/* Card icons section */
+.card-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-icons img {
+  width: 40px;
+  height: auto;
+}
+
+/* Expire & CVV inputs in one row */
+.card-details {
+  display: flex;
+  gap: 10px;
+}
+
+.card-details input {
+  flex: 1;
+}
+
+/* Add Card button */
+.payment-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.payment-form button:hover {
+  background-color: #e6b800;
+}
+
+/* Responsive adjustments */
+@media (max-width: 420px) {
+  .payment-form {
+    width: 90%;
+  }
+}

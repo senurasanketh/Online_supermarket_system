@@ -16,7 +16,7 @@ function Nav() {
           </a>
         </li>
         <li>
-          <a className="nav" href="/product">
+          <a className="nav" href="/Products">
             Products
           </a>
         </li>
@@ -30,11 +30,7 @@ function Nav() {
             Dashboard
           </a>
         </li>
-        <li>
-          <a className="nav" href="/inventory">
-            Inventory
-          </a>
-        </li>
+
         <li>
           <a className="nav" href="/order">
             Order

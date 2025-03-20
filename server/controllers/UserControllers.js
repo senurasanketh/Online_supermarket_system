@@ -46,7 +46,7 @@ const getById = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   const id = req.params.id;
-  console.log("id:>", id);
+  console.log("id:", id);
   const { name, address, phoneno } = req.body;
   let users;
 

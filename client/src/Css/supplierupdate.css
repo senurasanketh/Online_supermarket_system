@@ -1,0 +1,75 @@
+/* Centering the supplier update container */
+.supplier-update-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f8ff; /* Light blue background */
+}
+
+/* Styling the supplier update box */
+.supplier-update-box {
+  width: 400px;
+  background: rgba(173, 216, 230, 0.7); /* Transparent light blue shade */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.supplier-update-box h2 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Labels */
+.supplier-update-box label {
+  font-weight: 600;
+  margin-top: 10px;
+  color: #222;
+}
+
+/* Input fields */
+.supplier-update-box input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid #87cefa;
+  border-radius: 6px;
+  background-color: #f9fdff;
+}
+
+/* Buttons */
+.supplier-update-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Update Button */
+.supplier-update-box button[type="submit"] {
+  background-color: #ffe700; /* Green */
+  color: rgb(2, 2, 2);
+}
+
+.supplier-update-box button[type="submit"]:hover {
+  background-color: #ffe700;
+}
+
+/* Cancel Button */
+.supplier-update-box button[type="button"] {
+  background-color: #ff6347; /* Tomato */
+  color: white;
+}
+
+.supplier-update-box button[type="button"]:hover {
+  background-color: #e5533c;
+}
