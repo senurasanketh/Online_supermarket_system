@@ -13,7 +13,6 @@ import Myaccount from "./Pages/Myaccount";
 import OnlinePayment from "./Pages/OnlinePayment";
 import Employee from "./Pages/Employee";
 import EmployeeForm from "./Pages/EmployeeForm";
-
 import EmployeeUpdate from "./Pages/EmployeeUpdate";
 import SupplierForm from "./Pages/SupplierForm";
 import Supplier from "./Pages/Supplier";
@@ -26,9 +25,13 @@ import ItemAddForm from "./Pages/ItemAddForm";
 import Item from "./Pages/Item";
 import ItemUpdateForm from "./Pages/ItemUpdateForm";
 import Products from "./Pages/Products";
-// import CartPage from "./Pages/CartPage";
+import Cart from "./Pages/Cart"; // Import Cart page
+import OrderSuccess from "./Pages/OrderSuccess";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
+  const [cart, setCart] = useState([]); // Lift cart state to App
+
   return (
     <>
       <Routes>
@@ -53,9 +56,16 @@ function App() {
         <Route path="/ItemAddForm" element={<ItemAddForm />} />
         <Route path="/Item" element={<Item />} />
         <Route path="/ItemUpdateForm/:update" element={<ItemUpdateForm />} />
-        <Route path="/Products" element={<Products />} />
-        {/* <Route path="/CartPage" element={<CartPage />} /> */}
+        <Route path="/Dashboard" element={<Dashboard />} />
+
+        <Route
+          path="/Products"
+          element={<Products cart={cart} setCart={setCart} />}
+        />
+        <Route path="/Cart" element={<Cart cart={cart} setCart={setCart} />} />
+        <Route path="/Order-Success" element={<OrderSuccess />} />
       </Routes>
+
       <Footer />
     </>
   );

@@ -1,34 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Css/login.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import loginbg from "../assets/loginbg.jpg";
 
 function Login() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await sendRequest();
+      console.log("response::> ", response);
+
+      // Check if token exists (indicating success)
+      if (response.token) {
+        localStorage.setItem("token", response.token); // Store JWT
+        alert("Login successful");
+        navigate("/"); // Redirect to Home page
+      } else {
+        alert("Login error: " + (response.message || "Unknown error"));
+      }
+    } catch (err) {
+      alert("Error: " + (err.response?.data?.message || err.message));
+    }
+  };
+
+  const sendRequest = async () => {
+    return await axios
+      .post("http://localhost:5000/auth/login", {
+        email: user.email,
+        password: user.password,
+      })
+      .then((res) => res.data);
+  };
+
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <form>
-          <h2 align="center">Login</h2>
-          <br></br>
-          <label>Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-            required
-          />
-          <button type="submit">Login</button>
-          <p>
-            Don't have an account? <a href="/signup">Signup</a>
-          </p>
-        </form>
+    <div
+      style={{
+        backgroundImage: `url(${loginbg})`,
+        backgroundSize: "cover", // Ensures the image covers the full area
+        backgroundPosition: "center", // Centers the image
+        backgroundRepeat: "no-repeat", // Prevents repeating
+        width: "100%", // Full viewport width
+        height: "93.5vh", // Full viewport height
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <div className="login-container">
+        <div className="login-box">
+          <form onSubmit={handleSubmit}>
+            <h2 className="loginsize" align="center">
+              Login
+            </h2>
+            <br />
+            <label>Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              onChange={handleInputChange}
+              value={user.email}
+            />
+            <label>Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+              onChange={handleInputChange}
+              value={user.password}
+            />
+            <button className="loginbt1" type="submit">
+              Login
+            </button>
+            <p>
+              Don't have an account? <a href="/signup">Signup</a>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

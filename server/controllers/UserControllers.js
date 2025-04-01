@@ -15,11 +15,13 @@ const getAllUsers = async (req, res, next) => {
 
 //Insert data
 const AddUsers = async (req, res, next) => {
+  console.log("res", req.body);
   let users;
-  const { name, email, address, phoneno, role, status, password } = req.body;
+  const { name, email, address, phoneno, /*  role, status, */ password } =
+    req.body;
 
   try {
-    users = new User({ name, email, address, phoneno, role, status, password });
+    users = new User({ name, email, address, phoneno, password });
     await users.save();
   } catch (err) {
     console.log(err);
@@ -83,3 +85,35 @@ exports.AddUsers = AddUsers;
 exports.getById = getById;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
+
+/////Login
+// const Login = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const user = await User.findOne({ email });
+//     console.log("user:", user);
+
+//     if (!user) {
+//       return res
+//         .status(404)
+//         .json({ status: "error", message: "User not found" });
+//     }
+
+//     if (user.password === password) {
+//       console.log("drrddtd");
+//       return res.json({ status: "ok", message: "Login successful" });
+//     } else {
+//       console.log("else:");
+//       return res
+//         .status(401)
+//         .json({ status: "error", message: "Invalid credentials" });
+//     }
+//   } catch (err) {
+//     return res
+//       .status(500)
+//       .json({ status: "error", message: "Internal server error" });
+//   }
+// };
+// // Removed the extra closing parenthesis
+// exports.Login = Login;

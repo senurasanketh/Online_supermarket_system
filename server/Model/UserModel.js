@@ -9,6 +9,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   address: {
     type: String,
@@ -20,11 +21,11 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    required: true, //1- admin  2-customer
+    // required: true, //1- admin  2-customer
   },
   status: {
     type: String, //0- delete    1-save
-    required: true,
+    // required: true,
   },
   password: {
     type: String,

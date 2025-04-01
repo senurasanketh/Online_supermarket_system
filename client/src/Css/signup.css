@@ -1,92 +1,125 @@
-/* Center the form container */
-.signup-container {
+/* /* signup.css  */
+.signup1-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
-  background-color: #f0f8ff; /* Light blue background */
+  height: 120vh; /* Matches the parent div height */
 }
 
-/* Signup form box */
 .signup-box {
-  width: 90%; /* Make it responsive */
-  max-width: 350px; /* Limit width for larger screens */
-  background: rgba(196, 225, 246, 0.8); /* Light blue with some opacity */
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
-
-/* Form Title */
-.signup-box h2 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Label styles */
-.signup-box label {
-  display: block;
-  font-weight: bold;
-  margin-top: 8px;
-  color: #555;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Semi-transparent white for contrast */
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  width: 100%;
+  max-width: 450px; /* Slightly wider for more fields */
   text-align: left;
+
+  transition: transform 0.3s ease-in-out; /* Smooth scaling on hover */
 }
 
-/* Input field styles */
-.signup-box input {
+.signup-box:hover {
+  transform: scale(1.02);
+}
+
+.loginsize {
+  font-family: "Arial", sans-serif;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center; /* Centered like login */
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
+  padding: 0.75rem;
+  margin-bottom: 1.2rem;
+  /* border: 1px solid #ddd; */
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Button Styles */
-.signup-box button {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #e6d600;
+  box-shadow: 0 0 5px rgba(230, 214, 0, 0.5);
+  outline: none;
+}
+
+.loginbt1 {
   width: 100%;
-  padding: 10px;
-  background-color: #ffe700;
-  color: rgb(11, 10, 10);
+  padding: 0.9rem;
+  background-color: #e6d600;
+  color: white;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
-  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.signup-box button:hover {
-  background-color: #ffe700;
+button:hover {
+  background-color: #ffeb00;
+  transform: translateY(-2px);
 }
 
-/* Link styling */
-.signup-box p {
-  margin-top: 10px;
+button:active {
+  transform: translateY(0);
 }
 
-.signup-box a {
-  color: #007bff;
+p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
+
+a {
+  color: #e6d600;
   text-decoration: none;
+  font-weight: 500;
 }
 
-.signup-box a:hover {
+/* a:hover {
   text-decoration: underline;
-}
+  color: #ffeb00;
+} */
 
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .signup-box {
-    width: 90%;
-    padding: 15px;
+    padding: 1.5rem 2rem;
+    max-width: 90%;
   }
 
-  .signup-box input {
-    font-size: 14px;
+  .loginsize {
+    font-size: 1.5rem;
   }
 
-  .signup-box button {
-    font-size: 16px;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  button {
+    font-size: 0.9rem;
   }
 }

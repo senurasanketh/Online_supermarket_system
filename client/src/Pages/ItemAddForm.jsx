@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Nav from "../Components/Navbar/Nav";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../Css/itemaddform.css"; // Import your CSS file
+import "../Css/itemaddform.css";
 
 function ItemAddForm() {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ function ItemAddForm() {
     image: null,
     imagePreview: null,
   });
+  const [error, setError] = useState(null); // Added error state
 
-  // Handle input change
   const HandleChange = (e) => {
     setItemData({
       ...itemData,
@@ -24,34 +24,58 @@ function ItemAddForm() {
     });
   };
 
-  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setItemData({
         ...itemData,
         image: file,
-        imagePreview: URL.createObjectURL(file), // Preview image
+        imagePreview: URL.createObjectURL(file),
       });
     }
   };
 
-  function AddItems(e) {
+  const handleCategoryChange = (e) => {
+    // Added category handler
+    setItemData({
+      ...itemData,
+      category: e.target.value,
+    });
+  };
+
+  const AddItems = async (e) => {
     e.preventDefault();
+    setError(null); // Reset error state
+
     const formData = new FormData();
     formData.append("name", itemData.name);
     formData.append("itemcode", itemData.itemcode);
     formData.append("quantity", itemData.quantity);
     formData.append("price", itemData.price);
     formData.append("category", itemData.category);
-    formData.append("image", itemData.image);
+    if (itemData.image) {
+      formData.append("image", itemData.image); // This matches backend expectation
+    }
 
-    axios.post("http://localhost:5000/items/AddItem", formData).then((res) => {
-      console.log("res::> ", res);
-    });
-  }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/items/AddItem",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("res::> ", response.data);
+      navigate("/item");
+    } catch (err) {
+      setError(err.response?.data?.error || "Failed to add item");
+      console.error("Error:", err);
+    }
+  };
 
-  function ClearData() {
+  const ClearData = () => {
     setItemData({
       name: "",
       itemcode: "",
@@ -61,63 +85,63 @@ function ItemAddForm() {
       image: null,
       imagePreview: null,
     });
-  }
+    setError(null);
+  };
 
   return (
     <>
       <Nav />
       <div className="supplier-form-container">
-        <form className="supplier-form">
+        <form className="supplier-form" onSubmit={AddItems}>
           <h3>Item Add Form</h3>
+          {error && <div className="error-message">{error}</div>}{" "}
+          {/* Error display */}
           <label>Name</label>
           <input
             type="text"
             name="name"
             placeholder="Enter item name"
             value={itemData.name}
-            onChange={(e) => HandleChange(e)}
+            onChange={HandleChange}
           />
-
           <label>Item Code</label>
           <input
             type="text"
             name="itemcode"
             placeholder="Enter item code"
             value={itemData.itemcode}
-            onChange={(e) => HandleChange(e)}
+            onChange={HandleChange}
           />
-
           <label>Quantity</label>
           <input
-            type="text"
+            type="number" // Changed to number type
             name="quantity"
             placeholder="Enter quantity"
             value={itemData.quantity}
-            onChange={(e) => HandleChange(e)}
+            onChange={HandleChange}
           />
-
           <label>Price</label>
           <input
-            type="text"
+            type="number" // Changed to number type
             name="price"
             placeholder="Enter price"
             value={itemData.price}
-            onChange={(e) => HandleChange(e)}
+            onChange={HandleChange}
           />
-
           <label>Category</label>
-          <input
-            type="text"
+          <select
             name="category"
-            placeholder="Enter category"
             value={itemData.category}
-            onChange={(e) => HandleChange(e)}
-          />
-
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select Category</option>
+            <option value="Diary">Diary</option>
+            <option value="Beverages">Beverages</option>
+            <option value="Food Cupboard">Food Cupboard</option>
+            <option value="House Hold">House Hold</option>
+          </select>
           <label>Upload Image</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
-
-          {/* Image Preview */}
           {itemData.imagePreview && (
             <div style={{ display: "flex", justifyContent: "center" }}>
               <img
@@ -129,8 +153,7 @@ function ItemAddForm() {
               />
             </div>
           )}
-
-          <button type="submit" className="add-btn" onClick={AddItems}>
+          <button type="submit" className="add-btn">
             Add
           </button>
           <button type="button" className="cancel-btn" onClick={ClearData}>

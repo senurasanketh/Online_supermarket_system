@@ -1,8 +1,7 @@
-.body,
 html {
-  background-color: #dde4ea; /* Full-page background */
+  background-color: #dde4ea;
 }
-/* Centering the payment container */
+
 .payment-container1 {
   display: flex;
   flex-direction: column;
@@ -10,12 +9,10 @@ html {
   justify-content: center;
   background-color: #dde4ea;
   width: 50%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px auto;
   border-radius: 10px;
 }
 
-/* Styling the payment form */
 .payment-form {
   background: rgba(196, 225, 246);
   padding: 20px;
@@ -25,7 +22,6 @@ html {
   border-radius: 10px;
 }
 
-/* Form headings */
 .payment-form h3 {
   margin-bottom: 15px;
   color: #333;
@@ -33,7 +29,6 @@ html {
   font-weight: bold;
 }
 
-/* Form labels */
 .payment-form label {
   display: block;
   text-align: left;
@@ -42,7 +37,6 @@ html {
   color: #444;
 }
 
-/* Input fields */
 .payment-form input {
   width: 100%;
   padding: 10px;
@@ -50,23 +44,32 @@ html {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  background-color: #ffff; /* Light transparent input background */
+  background-color: #ffff;
 }
 
-/* Card icons section */
-.card-icons {
+.card-type-selection {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 15px;
+  margin: 10px 0;
+  justify-content: center;
 }
 
-.card-icons img {
-  width: 40px;
+.card-type-selection img {
+  width: 100px;
   height: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-/* Expire & CVV inputs in one row */
+.card-type-selection img:hover {
+  transform: scale(1.1);
+}
+
+.card-type-selection img.selected {
+  border: 2px solid #ffcc00;
+  border-radius: 5px;
+}
+
 .card-details {
   display: flex;
   gap: 10px;
@@ -76,7 +79,6 @@ html {
   flex: 1;
 }
 
-/* Add Card button */
 .payment-form button {
   width: 100%;
   padding: 10px;
@@ -94,9 +96,8 @@ html {
   background-color: #e6b800;
 }
 
-/* Responsive adjustments */
 @media (max-width: 420px) {
-  .payment-form {
+  .payment-container1 {
     width: 90%;
   }
 }

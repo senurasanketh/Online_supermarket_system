@@ -32,7 +32,9 @@ function Contactus() {
           }}
         >
           <div>
-            <h1 align="center">Contact Us</h1>
+            <h2 align="center" className="h11" color="black">
+              Contact Us
+            </h2>
             <br />
             <br />
             <Grid container spacing={2}>

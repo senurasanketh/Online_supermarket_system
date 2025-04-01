@@ -64,7 +64,7 @@ const updateSupplier = async (req, res, next) => {
       phoneno: phoneno,
       city: city,
     });
-    suppliers = await supplierssave();
+    suppliers = await suppliers.save();
   } catch (err) {
     console.log(err);
   }

@@ -65,6 +65,7 @@ function SupplierForm() {
 
       <div className="supplier-form-container">
         <form className="supplier-form">
+          <h3>Supplier Add Form</h3>
           <label>Name</label>
           <input
             type="text"

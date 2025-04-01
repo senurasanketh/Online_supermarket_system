@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Components/Navbar/Nav";
 import axios from "axios";
-import "../Css/employeedetails.css"; // Import the external CSS file
 import { useNavigate } from "react-router-dom";
 
 function EmployeeDetails() {
@@ -45,62 +44,219 @@ function EmployeeDetails() {
   }
 
   return (
-    <div className="employee-container">
+    <>
       <Nav />
-      <h2>Employee Details</h2>
-      <div style={{ marginTop: "20px" }}>
-        <button className="delete-btn" onClick={() => AddEmployee()}>
-          Add User
-        </button>
-      </div>
-      <table className="employee-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>NIC</th>
-            <th>Age</th>
-            <th>Role</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.length > 0 ? (
-            employees.map((employee, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{employee.name}</td>
-                <td>{employee.email}</td>
-                <td>{employee.address}</td>
-                <td>{employee.nic}</td>
-                <td>{employee.age}</td>
-                <td>{employee.Role}</td>
-                <td>
-                  <button
-                    className="update-btn"
-                    onClick={() => handleUpdate(employee._id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(employee._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+      <div style={{ fontFamily: "Arial, sans-serif" }}>
+        <div
+          style={{
+            padding: "20px",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
+          <h1
+            style={{
+              textAlign: "center",
+              color: "#333",
+              marginBottom: "30px",
+              fontSize: "2.5rem",
+            }}
+          >
+            Employee Details
+          </h1>
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <button
+              onClick={AddEmployee}
+              style={{
+                backgroundColor: "#e6d600",
+                color: "#000",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                transition: "background-color 0.3s",
+              }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#d4c400")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "#e6d600")}
+            >
+              Add Employee
+            </button>
+          </div>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              marginTop: "20px",
+              backgroundColor: "#fff",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <thead>
+              <tr
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  borderBottom: "2px solid #ddd",
+                }}
+              >
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  ID
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Name
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Email
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Address
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  NIC
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Age
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Role
+                </th>
+                <th
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Action
+                </th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="8">No Employees Found</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+            </thead>
+            <tbody>
+              {employees.length > 0 ? (
+                employees.map((employee, i) => (
+                  <tr
+                    key={i}
+                    style={{
+                      borderBottom: "1px solid #ddd",
+                      backgroundColor:
+                        i % 2 === 0
+                          ? "transparent"
+                          : "rgba(245, 245, 245, 0.5)",
+                    }}
+                  >
+                    <td style={{ padding: "12px" }}>{i + 1}</td>
+                    <td style={{ padding: "12px" }}>{employee.name}</td>
+                    <td style={{ padding: "12px" }}>{employee.email}</td>
+                    <td style={{ padding: "12px" }}>{employee.address}</td>
+                    <td style={{ padding: "12px" }}>{employee.nic}</td>
+                    <td style={{ padding: "12px" }}>{employee.age}</td>
+                    <td style={{ padding: "12px" }}>{employee.Role}</td>
+                    <td style={{ padding: "12px" }}>
+                      <button
+                        onClick={() => handleUpdate(employee._id)}
+                        style={{
+                          backgroundColor: "#e6d600",
+                          color: "#000",
+                          padding: "8px 16px",
+                          border: "none",
+                          borderRadius: "4px",
+                          cursor: "pointer",
+                          marginRight: "10px",
+                          transition: "background-color 0.3s",
+                        }}
+                        onMouseOver={(e) =>
+                          (e.target.style.backgroundColor = "#d4c400")
+                        }
+                        onMouseOut={(e) =>
+                          (e.target.style.backgroundColor = "#e6d600")
+                        }
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => handleDelete(employee._id)}
+                        style={{
+                          backgroundColor: "#f44336",
+                          color: "white",
+                          padding: "8px 16px",
+                          border: "none",
+                          borderRadius: "4px",
+                          cursor: "pointer",
+                          transition: "background-color 0.3s",
+                        }}
+                        onMouseOver={(e) =>
+                          (e.target.style.backgroundColor = "#d32f2f")
+                        }
+                        onMouseOut={(e) =>
+                          (e.target.style.backgroundColor = "#f44336")
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="8"
+                    style={{
+                      padding: "20px",
+                      textAlign: "center",
+                      color: "#666",
+                    }}
+                  >
+                    No Employees Found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 }
 

@@ -53,14 +53,18 @@ const itemgetById = async (req, res, next) => {
 
 const updateItem = async (req, res, next) => {
   const id = req.params.id;
-  const { name, quantity, price, imageurl } = req.body;
+  const image = req.files.image;
+  const imageName = new Date().getTime();
+  await image.mv("Assets/" + `${imageName}.jpg`, (err) => {});
+
+  const { name, quantity, price } = req.body;
   let items;
   try {
     items = await Item.findByIdAndUpdate(id, {
       name: name,
       quantity: quantity,
       price: price,
-      imageurl: imageurl,
+      image: `${imageName}.jpg`,
     });
     items = await items.save();
   } catch (err) {
@@ -74,16 +78,14 @@ const updateItem = async (req, res, next) => {
 
 const deleteItem = async (req, res, next) => {
   const id = req.params.id;
+  console.log("id::> ", id);
   let items;
   try {
     items = await Item.findByIdAndDelete(id);
+    return res.status(200).json({ items });
   } catch (err) {
     console.log(err);
   }
-  if (!items) {
-    return res.status(404).send({ message: "unble to item" });
-  }
-  return res.status(200).json({ items });
 };
 exports.getAllItems = getAllItems;
 exports.AddItems = AddItems;

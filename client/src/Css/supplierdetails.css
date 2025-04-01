@@ -30,7 +30,7 @@
   font-weight: bold;
 }
 
-.supplier-table tr:nth-child(even) {
+.supplier-table tr {
   background-color: #f9f9f9;
 }
 

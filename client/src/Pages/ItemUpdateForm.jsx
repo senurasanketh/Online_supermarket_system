@@ -6,143 +6,143 @@ import "../Css/itemupdate.css";
 
 function ItemUpdateForm() {
   const navigate = useNavigate();
-  const updateID = useParams();
+  const { update } = useParams(); // Extract item ID from URL
+  console.log("update::> ", update);
   const [itemData, setItemData] = useState({
     name: "",
     itemcode: "",
     quantity: "",
     price: "",
     category: "",
-    image: "",
+    image: "", // Store image filename
+    imagePreview: "", // Store preview URL
   });
 
-  // Handle image upload
+  // Fetch item details by ID when component mounts
+  useEffect(() => {
+    GetItemDetailsByID();
+  }, []);
+
+  // Fetch existing item details from the server
+  function GetItemDetailsByID() {
+    axios
+      .get(`http://localhost:5000/items/itemgetById/${update}`)
+      .then((res) => {
+        const item = res.data.items;
+        setItemData({
+          name: item.name,
+          itemcode: item.itemcode,
+          quantity: item.quantity,
+          price: item.price,
+          category: item.category,
+          image: item.image, // Set existing image filename
+          imagePreview: item.image
+            ? `http://localhost:5000/uploads/${item.image}`
+            : "", // Display image if exists
+        });
+      })
+      .catch((err) => console.error("Error fetching item:", err));
+  }
+
+  // Handle form input changes
+  function HandleChange(e) {
+    setItemData({
+      ...itemData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  // Handle image selection and preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setItemData({
         ...itemData,
-        image: file,
-        imagePreview: URL.createObjectURL(file), // Preview image
+        image: file, // Store the selected file
+        imagePreview: URL.createObjectURL(file), // Generate preview URL
       });
     }
   };
-  useEffect(() => {
-    GetItemDetailsByID();
-  }, []);
 
-  function HandleChange(e) {
-    const target = e.target;
-    const value = target.value;
-    setItemData({
-      ...itemData,
-      [e.target.name]: value,
-    });
-  }
-
+  // Handle item update
   function UpdateItem(e) {
     e.preventDefault();
-    const UpdateModel = {
-      name: itemData.name,
-      quantity: itemData.quantity,
-      price: itemData.price,
-      image: itemData.image,
-    };
+
+    const formData = new FormData();
+    formData.append("name", itemData.name);
+    formData.append("quantity", itemData.quantity);
+    formData.append("price", itemData.price);
+    formData.append("image", itemData.image); // Append new image if selected
+
     axios
-      .put(
-        `http://localhost:5000/items/updateItem/${updateID.update}`,
-        UpdateModel
-      )
+      .put(`http://localhost:5000/items/updateItem/${update}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }, // Required for file upload
+      })
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
+          alert("Item updated successfully!");
           navigate("/Item");
-          ClearData(e);
         }
-      });
+      })
+      .catch((err) => console.error("Error updating item:", err));
   }
 
-  function GetItemDetailsByID() {
-    axios
-      .get(`http://localhost:5000/items/itemgetById/${updateID.update}`)
-      .then((res) => {
-        console.log("res::> ", res.data);
-        setItemData({
-          ...itemData,
-          name: res.data.items.name,
-          itemcode: res.data.items.itemcode,
-          quantity: res.data.items.quantity,
-          price: res.data.items.price,
-          category: res.data.items.category,
-          image: res.data.items.image,
-        });
-      });
-  }
-
-  function ClearData(e) {
-    setItemData({
-      ...itemData,
-      name: "",
-      itemcode: "",
-      quantity: "",
-      price: "",
-      category: "",
-    });
-  }
   return (
     <>
       <Nav />
       <div className="item-update-container">
-        <form className="item-update-box">
+        <form className="item-update-box" onSubmit={UpdateItem}>
           <h3>Update Item Form</h3>
-          <label> Name</label>
+
+          {/* Name Field */}
+          <label>Name</label>
           <input
             type="text"
             name="name"
-            id="name"
             value={itemData.name}
             placeholder="Enter the name"
             onChange={HandleChange}
           />
 
-          <label> ItemCode</label>
+          {/* Item Code Field (Read-Only) */}
+          <label>Item Code</label>
           <input
             type="text"
             name="itemcode"
-            id="itemcode"
             value={itemData.itemcode}
-            placeholder="Enter the itemcode"
             readOnly
           />
 
-          <label> Quantity</label>
+          {/* Quantity Field */}
+          <label>Quantity</label>
           <input
             type="text"
             name="quantity"
-            id="quantity"
             value={itemData.quantity}
             placeholder="Enter the quantity"
             onChange={HandleChange}
           />
 
-          <label> Price</label>
+          {/* Price Field */}
+          <label>Price</label>
           <input
             type="text"
             name="price"
-            id="price"
             value={itemData.price}
             placeholder="Enter the price"
             onChange={HandleChange}
           />
 
-          <label> Category</label>
+          {/* Category Field (Read-Only) */}
+          <label>Category</label>
           <input
             type="text"
             name="category"
-            id="category"
             value={itemData.category}
-            placeholder="Enter the category"
             readOnly
           />
+
+          {/* Image Upload Field */}
           <label>Upload Image</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
 
@@ -159,9 +159,8 @@ function ItemUpdateForm() {
             </div>
           )}
 
-          <button type="submit" onClick={UpdateItem}>
-            Update
-          </button>
+          {/* Buttons */}
+          <button type="submit">Update</button>
           <button type="button" onClick={() => navigate("/Item")}>
             Cancel
           </button>

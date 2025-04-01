@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -12,90 +12,103 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Nav from "../Components/Navbar/Nav";
+import { useNavigate } from "react-router-dom";
 
-function Products() {
-  // Sample product data (Replace with API later)
-  const productList = [
-    {
-      id: 1,
-      itemName: "Apple",
-      description: "Fresh and juicy apples.",
-      price: 1.99,
-      picture: "https://via.placeholder.com/200",
-    },
-    {
-      id: 2,
-      itemName: "Banana",
-      description: "Sweet and ripe bananas.",
-      price: 0.99,
-      picture: "https://via.placeholder.com/200",
-    },
-    {
-      id: 3,
-      itemName: "Orange",
-      description: "Citrus and refreshing.",
-      price: 2.49,
-      picture: "https://via.placeholder.com/200",
-    },
-  ];
+function Products({ cart, setCart }) {
+  const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState({});
+  const navigate = useNavigate();
 
-  const [quantity, setQuantity] = useState({}); // Store product quantities
-  const [cart, setCart] = useState([]); // Store cart items
+  useEffect(() => {
+    fetch("http://localhost:5000/items")
+      .then((response) => response.json())
+      .then((data) => setProducts(data.items))
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
 
-  // Handle Quantity Change
   const handleQtyChange = (id, value) => {
     setQuantity((prev) => ({ ...prev, [id]: Math.max(value, 0) }));
   };
 
-  // Handle Add to Cart
   const handleAddToCart = (product) => {
-    if (!quantity[product.id] || quantity[product.id] === 0) {
+    if (!quantity[product._id] || quantity[product._id] === 0) {
       alert("Please select a quantity before adding to cart.");
       return;
     }
 
-    const newCartItem = { ...product, quantity: quantity[product.id] };
-    setCart((prev) => [...prev, newCartItem]);
+    const newCartItem = { ...product, quantity: quantity[product._id] };
+    setCart((prev) => {
+      const existingItemIndex = prev.findIndex(
+        (item) => item._id === product._id
+      );
+      if (existingItemIndex >= 0) {
+        const updatedCart = [...prev];
+        updatedCart[existingItemIndex].quantity += quantity[product._id];
+        return updatedCart;
+      }
+      return [...prev, newCartItem];
+    });
 
-    alert(`${product.itemName} added to cart!`);
+    alert(`${product.name} added to cart!`);
+    setQuantity((prev) => ({ ...prev, [product._id]: 0 })); // Reset quantity
   };
 
   return (
     <div>
       <Nav />
       <div style={{ padding: "20px" }}>
-        <Typography variant="h3" align="center" fontWeight="bold">
-          Product List
-          <hr style={{ width: "150px", margin: "10px auto" }} />
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h4" fontWeight="bold" align="center">
+            Product List
+            <hr style={{ width: "150px", margin: "10px 0" }} />
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#ffcc00",
+              color: "#000",
+            }}
+            onClick={() => navigate("/Cart")}
+          >
+            View Cart ({cart.length})
+          </Button>
+        </div>
 
         <Grid container spacing={4}>
-          {productList.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <Card sx={{ maxWidth: 345, m: 2 }}>
+          {products.map((product) => (
+            <Grid item xs={12} sm={6} md={3} key={product._id}>
+              <Card sx={{ maxWidth: 340, m: 2 }}>
                 <CardMedia
                   component="img"
-                  height="200"
-                  image={product.picture}
-                  alt={product.itemName}
+                  height="140"
+                  image={`http://localhost:5000/Assets/${product.image}`}
+                  alt={product.name}
+                  sx={{ objectFit: "contain" }} // Or use "cover" for a different effect
                 />
+
                 <CardContent>
                   <Typography variant="h5" fontWeight="bold">
-                    {product.itemName}
+                    {product.name}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {product.description}
+                    {product.category}
                   </Typography>
                   <Typography variant="body1" fontWeight="bold">
-                    Price: ${product.price}
+                    Price: Rs.{product.price}
                   </Typography>
                   <br />
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <IconButton
                       onClick={() =>
                         handleQtyChange(
-                          product.id,
-                          (quantity[product.id] || 0) - 1
+                          product._id,
+                          (quantity[product._id] || 0) - 1
                         )
                       }
                     >
@@ -105,17 +118,17 @@ function Products() {
                       type="number"
                       variant="outlined"
                       size="small"
-                      value={quantity[product.id] || 0}
+                      value={quantity[product._id] || 0}
                       onChange={(e) =>
-                        handleQtyChange(product.id, Number(e.target.value))
+                        handleQtyChange(product._id, Number(e.target.value))
                       }
                       style={{ width: 60, textAlign: "center" }}
                     />
                     <IconButton
                       onClick={() =>
                         handleQtyChange(
-                          product.id,
-                          (quantity[product.id] || 0) + 1
+                          product._id,
+                          (quantity[product._id] || 0) + 1
                         )
                       }
                     >
@@ -124,9 +137,8 @@ function Products() {
                   </div>
                   <Button
                     variant="contained"
-                    color="primary"
+                    sx={{ mt: 2, backgroundColor: "#ffcc00", color: "#000" }} // Changed color to #ffcc00, text to black
                     fullWidth
-                    sx={{ mt: 2 }}
                     onClick={() => handleAddToCart(product)}
                   >
                     Add to Cart

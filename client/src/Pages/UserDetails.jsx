@@ -14,9 +14,10 @@ function UserDetails() {
 
   const fetchHandler = async () => {
     try {
-      const res = await axios.get("http://Localhost:5000/users");
-      if (res.data.employees.length > 0) {
-        setUsers(res.data.employees);
+      const res = await axios.get(`http://localhost:5000/users/getallusers`);
+      console.log("res::> ", res.data);
+      if (res.data.users.length > 0) {
+        setUsers(res.data.users);
       }
     } catch (error) {
       console.error("Error fetching employee data:", error);
@@ -26,7 +27,7 @@ function UserDetails() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
-        await axios.delete(`http://Localhost:5000/users/deleteUser/${id}`);
+        await axios.delete(`http://localhost:5000/users/deleteUser/${id}`);
         fetchHandler();
       } catch (error) {
         console.error("Error deleting employee:", error);
@@ -35,62 +36,66 @@ function UserDetails() {
   };
 
   return (
-    <div className="employee-container">
+    <>
       <Nav />
-      <h2>Users Details</h2>
-      <div style={{ marginTop: "20px" }}>
-        <button className="delete-btn" onClick={() => AddEmployee()}>
-          Add User
-        </button>
-      </div>
-      <table className="employee-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>NIC</th>
-            <th>Age</th>
-            <th>Role</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length > 0 ? (
-            users.map((user, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.address}</td>
-                <td>{user.nic}</td>
-                <td>{user.age}</td>
-                <td>{user.Role}</td>
-                <td>
-                  <button
-                    className="update-btn"
-                    onClick={() => handleUpdate(user._id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
+      <div className="employee-container">
+        <h2>Users Details</h2>
+        {/* <div style={{ marginTop: "20px" }}>
+          <button className="delete-btn" onClick={() => AddEmployee()}>
+            Add User
+          </button>
+        </div> */}
+        <table className="employee-table">
+          <thead>
             <tr>
-              <td colSpan="8">No users Found</td>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Phone no</th>
+              {/* <th>NIC</th>
+              <th>Age</th> */}
+
+              <th>Action</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {users.length > 0 ? (
+              users.map((user, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.address}</td>
+                  <td>{user.phoneno}</td>
+
+                  {/* <td>{user.nic}</td> */}
+
+                  <td>
+                    <button
+                      className="update-btn"
+                      onClick={() => handleUpdate(user._id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(user._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8">No users Found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 

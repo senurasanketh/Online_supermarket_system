@@ -4,8 +4,8 @@
   text-align: center;
 }
 
-h2 {
-  color: #333;
+h1 {
+  color: #ddd;
 }
 
 .employee-table {
@@ -26,7 +26,7 @@ h2 {
   font-weight: bold;
 }
 
-.employee-table tr:nth-child(even) {
+.employee-table tr {
   background-color: #f9f9f9;
 }
 

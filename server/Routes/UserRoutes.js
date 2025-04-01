@@ -5,10 +5,11 @@ const User = require("../Model/UserModel");
 //insert user controller
 const UserControllers = require("../controllers/UserControllers");
 
-UserRouter.get("/", UserControllers.getAllUsers);
-UserRouter.post("/", UserControllers.AddUsers);
+UserRouter.get("/getallusers", UserControllers.getAllUsers);
+UserRouter.post("/addusers", UserControllers.AddUsers);
 UserRouter.get("/:id", UserControllers.getById);
 UserRouter.put("/updateUser/:id", UserControllers.updateUser);
 UserRouter.delete("/deleteUser/:id", UserControllers.deleteUser);
+// UserRouter.post("/login", UserControllers.Login);
 
 module.exports = UserRouter;
