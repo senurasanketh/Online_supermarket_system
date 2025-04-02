@@ -1,3 +1,4 @@
+// components/Login.jsx
 import React, { useState } from "react";
 import "../Css/login.css";
 import { useNavigate } from "react-router-dom";
@@ -25,8 +26,18 @@ function Login() {
       // Check if token exists (indicating success)
       if (response.token) {
         localStorage.setItem("token", response.token); // Store JWT
+        localStorage.setItem("role", response.role); // Store role
+
         alert("Login successful");
-        navigate("/"); // Redirect to Home page
+
+        // Redirect based on role
+        if (response.role === "1") {
+          navigate("/dashboard"); // Admin goes to dashboard
+        } else if (response.role === "2") {
+          navigate("/"); // User goes to home page
+        } else {
+          alert("Unknown role");
+        }
       } else {
         alert("Login error: " + (response.message || "Unknown error"));
       }
@@ -48,11 +59,11 @@ function Login() {
     <div
       style={{
         backgroundImage: `url(${loginbg})`,
-        backgroundSize: "cover", // Ensures the image covers the full area
-        backgroundPosition: "center", // Centers the image
-        backgroundRepeat: "no-repeat", // Prevents repeating
-        width: "100%", // Full viewport width
-        height: "93.5vh", // Full viewport height
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        width: "100%",
+        height: "93.5vh",
         backgroundAttachment: "fixed",
       }}
     >

@@ -45,12 +45,12 @@ function OrderSuccess() {
           <div className="item-info">
             {orderData.items.map((item, index) => (
               <span key={index}>
-                <strong>Item {index + 1}:</strong> {item.name} - $
+                <strong>Item {index + 1}:</strong> {item.name} - Rs
                 {(item.price * item.quantity).toFixed(2)}
               </span>
             ))}
             <span>
-              <strong>Total:</strong> ${orderData.total.toFixed(2)}
+              <strong>Total:</strong> Rs{orderData.total.toFixed(2)}
             </span>
           </div>
 

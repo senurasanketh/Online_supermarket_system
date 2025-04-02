@@ -8,6 +8,7 @@ const OrderDetailsController = require("../controllers/OrderDetailsController");
 // OrderDetailsRouter.delete("/orders/:id", OrderDetailsController.deleteOrder);
 
 OrderDetailsRouter.post("/addOrders", OrderDetailsController.createOrder);
-OrderDetailsRouter.get("/:orderId", OrderDetailsController.getOrder);
+// OrderDetailsRouter.get("/:orderId", OrderDetailsController.getOrder);
+OrderDetailsRouter.get("/getdetails", OrderDetailsController.getAllOrders);
 
 module.exports = OrderDetailsRouter;

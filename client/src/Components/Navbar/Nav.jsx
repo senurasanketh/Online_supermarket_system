@@ -1,75 +1,135 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../Css/nav.css";
 import nav from "../../assets/nav.png";
-// import { Link } from "react-router-dom"; c4e1f6
+import { Link, useNavigate } from "react-router-dom";
 
 function Nav() {
+  const navigate = useNavigate();
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const role = JSON.parse(localStorage.getItem("role"));
+    console.log("role::> ", role);
+    setRole(role);
+  }, []);
+
+  function logOutFunc() {
+    localStorage.removeItem("Users");
+    localStorage.removeItem("Role");
+    navigate("/Login");
+    window.location.reload();
+  }
   return (
     <div className="navbar">
       <img src={nav} />
       <ul>
+        {role == "2" || role == "1" ? (
+          <li>
+            <Link className="nav" to="/">
+              {/* <Link to="/mainhome" className="active home-Link"> */}
+              Home
+              {/* </Link> */}
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "2" || role == "1" ? (
+          <li>
+            <Link className="nav" to="/Products">
+              Products
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "2" || role == "1" ? (
+          <li>
+            <Link className="nav" to="/contactus">
+              Contactus
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "1" || role == "1" ? (
+          <li>
+            <Link className="nav" to="/dashboard">
+              Dashboard
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "1" ? (
+          <li>
+            <Link className="nav" to="/order">
+              Order
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "1" ? (
+          <li>
+            <Link className="nav" to="/supplier">
+              Supplier
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {/* <li>
+          <Link className="nav" href="/payment">
+            Payment
+          </Link>
+        </li> */}
+        {role == "1" ? (
+          <li>
+            <Link className="nav" to="/employee">
+              Employee
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "1" ? (
+          <li>
+            <Link className="nav" to="/item">
+              Item
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+        {role == "1" || role == "1" ? (
+          <li>
+            <Link className="nav" to="/myaccount">
+              My Account
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
+      </ul>
+
+      <ul>
         <li>
-          <a className="nav" href="/">
-            {/* <Link to="/mainhome" className="active home-a"> */}
-            Home
-            {/* </Link> */}
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/Products">
-            Products
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/contactus">
-            Contactus
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/dashboard">
-            Dashboard
-          </a>
+          <Link className="nav" to="/login">
+            Login
+          </Link>
         </li>
 
         <li>
-          <a className="nav" href="/order">
-            Order
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/supplier">
-            Supplier
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/payment">
-            Payment
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/employee">
-            Employee
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/item">
-            Item
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/myaccount">
-            My Account
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/login">
-            Login
-          </a>
-        </li>
-        <li>
-          <a className="nav" href="/signup">
+          <Link className="nav" to="/signup">
             Signup
-          </a>
+          </Link>
+        </li>
+
+        <li>
+          <Link className="nav" to="/login" onClick={logOutFunc}>
+            Logout
+          </Link>
         </li>
       </ul>
     </div>

@@ -1,81 +1,109 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Components/Navbar/Nav";
-import "../Css/supplierdetails.css"; // Import the CSS file
+import "../Css/supplierdetails.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function PaymentDetails() {
   const navigate = useNavigate();
-  const [payments, setPayments] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchHandler();
+    fetchOrders();
   }, []);
 
-  const fetchHandler = async () => {
+  const fetchOrders = async () => {
+    setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/payments");
-      if (res.data.payments.length > 0) {
-        setPayments(res.data.payments);
+      // Assuming we'll use the getOrdersTable endpoint from the previous controller
+      const res = await axios.get("http://localhost:5000/orders/getdetails");
+      if (res.data.table && res.data.table.length > 0) {
+        setOrders(res.data.table);
       }
     } catch (error) {
-      console.error("eroor fetching employee data", error);
+      console.error("Error fetching order data:", error);
+      setError("Failed to load orders. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
-  const handleUpdate = (id) => {
-    navigate(`/SupplierUpdate/${id}`);
+
+  const handleUpdate = (orderId) => {
+    navigate(`/OrderUpdate/${orderId}`);
   };
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this employee?")) {
+
+  const handleDelete = async (orderId) => {
+    if (window.confirm("Are you sure you want to delete this order?")) {
       try {
-        await axios.delete(
-          `http://localhost:5000/employees/deletesupplier/${id}`
-        );
-        fetchHandler();
+        await axios.delete(`http://localhost:5000/orders/delete/${orderId}`);
+        fetchOrders();
       } catch (error) {
-        console.error("Error deleting employee:", error);
+        console.error("Error deleting order:", error);
+        setError("Failed to delete order. Please try again.");
       }
     }
   };
-  function AddSuppliers() {
-    navigate("/SupplierForm");
-  }
+
+  const handleAddOrder = () => {
+    navigate("/OrderForm");
+  };
+
   return (
     <div className="supplier-container">
       <Nav />
-      <h2>Payment Details</h2>
+      <div className="header-section">
+        <h2>Order Payment Details</h2>
+        <button className="add-btn" onClick={handleAddOrder}>
+          Add New Order
+        </button>
+      </div>
+
+      {error && <div className="error-message">{error}</div>}
+
       <table className="supplier-table">
         <thead>
           <tr>
-            <th>Payment Id</th>
+            <th>#</th>
             <th>Order ID</th>
             <th>Customer</th>
             <th>Amount</th>
+            <th>Payment Method</th>
+            <th>City</th>
+            <th>Items</th>
             <th>Date</th>
-            <th>Action</th>
+            <th>Delivery Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {payments.length > 0 ? (
-            payments.map((payment, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{payment.paymentid}</td>
-                <td>{payment.orderid}</td>
-                <td>{payment.customer}</td>
-                <td>{payment.amount}</td>
-                <td>{payment.date}</td>
-
+          {loading ? (
+            <tr>
+              <td colSpan="10">Loading...</td>
+            </tr>
+          ) : orders.length > 0 ? (
+            orders.map((order, index) => (
+              <tr key={order.orderId}>
+                <td>{index + 1}</td>
+                <td>{order.orderId}</td>
+                <td>{order.userId || "Guest"}</td>
+                <td>{order.total}</td>
+                <td>{order.paymentMethod}</td>
+                <td>{order.city}</td>
+                <td>{order.itemCount}</td>
+                <td>{order.createdAt}</td>
+                <td>{order.deliveryDate}</td>
                 <td>
                   <button
                     className="update-btn"
-                    onClick={() => handleUpdate(payment._id)}
+                    onClick={() => handleUpdate(order.orderId)}
                   >
                     Update
                   </button>
                   <button
                     className="delete-btn"
-                    onClick={() => handleDelete(payment._id)}
+                    onClick={() => handleDelete(order.orderId)}
                   >
                     Delete
                   </button>
@@ -84,7 +112,7 @@ function PaymentDetails() {
             ))
           ) : (
             <tr>
-              <td colSpan="7">No Employees Found</td>
+              <td colSpan="10">No Orders Found</td>
             </tr>
           )}
         </tbody>

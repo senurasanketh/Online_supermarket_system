@@ -21,9 +21,8 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin"], // Restrict to these values
-    default: "user",
-    // required: true, //1- admin  2-customer
+    default: "2",
+    required: true, //1- admin  2-customer
   },
   status: {
     type: String, //0- delete    1-save
