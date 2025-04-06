@@ -79,11 +79,11 @@ function Nav() {
         ) : (
           <></>
         )}
-        {/* <li>
-          <Link className="nav" href="/payment">
+        <li>
+          <Link className="nav" to="/PaymentDetails">
             Payment
           </Link>
-        </li> */}
+        </li>
         {role == "1" ? (
           <li>
             <Link className="nav" to="/employee">
