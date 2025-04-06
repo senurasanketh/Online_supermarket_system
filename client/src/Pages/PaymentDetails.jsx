@@ -19,16 +19,17 @@ function PaymentDetails() {
     try {
       // Assuming we'll use the getOrdersTable endpoint from the previous controller
       const res = await axios.get("http://localhost:5000/orders/getdetails");
-      if (res.data.table && res.data.table.length > 0) {
-        setOrders(res.data.table);
+
+      if (res.data.orders.length > 0) {
+        setOrders(res.data.orders);
       }
     } catch (error) {
-      console.error("Error fetching order data:", error);
       setError("Failed to load orders. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+  console.log("orders::> ", orders);
 
   const handleUpdate = (orderId) => {
     navigate(`/OrderUpdate/${orderId}`);
@@ -87,13 +88,13 @@ function PaymentDetails() {
               <tr key={order.orderId}>
                 <td>{index + 1}</td>
                 <td>{order.orderId}</td>
-                <td>{order.userId || "Guest"}</td>
+                <td>{order.shippingAddress.fullName || "Guest"}</td>
                 <td>{order.total}</td>
                 <td>{order.paymentMethod}</td>
-                <td>{order.city}</td>
+                <td>{order.shippingAddress.city}</td>
                 <td>{order.itemCount}</td>
-                <td>{order.createdAt}</td>
-                <td>{order.deliveryDate}</td>
+                <td>{order.createdAt.split("T")[0]}</td>
+                <td>{order.deliveryDate.split("T")[0]}</td>
                 <td>
                   <button
                     className="update-btn"
