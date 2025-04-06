@@ -18,7 +18,7 @@ import SupplierForm from "./Pages/SupplierForm";
 import Supplier from "./Pages/Supplier";
 import SupplierUpdate from "./Pages/SupplierUpdate";
 import UserDetails from "./Pages/UserDetails";
-import PaymentDetailsForm from "./Pages/PaymentDetailsForm";
+
 import PaymentDetails from "./Pages/PaymentDetails";
 import UserUpdateDetailsFor from "./Pages/UserUpdateDetailsFor";
 import ItemAddForm from "./Pages/ItemAddForm";
@@ -50,7 +50,7 @@ function App() {
         <Route path="/Supplier" element={<Supplier />} />
         <Route path="/SupplierUpdate/:update" element={<SupplierUpdate />} />
         <Route path="/UserDetails" element={<UserDetails />} />
-        <Route path="/PaymentDetailsForm" element={<PaymentDetailsForm />} />
+
         <Route path="/PaymentDetails" element={<PaymentDetails />} />
         <Route path="/UserUpdateFor" element={<UserUpdateDetailsFor />} />
         <Route path="/ItemAddForm" element={<ItemAddForm />} />

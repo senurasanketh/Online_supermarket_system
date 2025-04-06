@@ -52,73 +52,76 @@ function PaymentDetails() {
   };
 
   return (
-    <div className="supplier-container">
+    <>
+      {" "}
       <Nav />
-      <div className="header-section">
-        <h2>Order Payment Details</h2>
-        <button className="add-btn" onClick={handleAddOrder}>
+      <div className="supplier-container">
+        <div className="header-section">
+          <h2>Order Payment Details</h2>
+          {/* <button className="add-btn" onClick={handleAddOrder}>
           Add New Order
-        </button>
-      </div>
+        </button> */}
+        </div>
 
-      {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message">{error}</div>}
 
-      <table className="supplier-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Amount</th>
-            <th>Payment Method</th>
-            <th>City</th>
-            <th>Items</th>
-            <th>Date</th>
-            <th>Delivery Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
+        <table className="supplier-table">
+          <thead>
             <tr>
-              <td colSpan="10">Loading...</td>
+              <th>#</th>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Amount</th>
+              <th>Payment Method</th>
+              <th>City</th>
+              <th>Items</th>
+              <th>Date</th>
+              <th>Delivery Date</th>
+              <th>Actions</th>
             </tr>
-          ) : orders.length > 0 ? (
-            orders.map((order, index) => (
-              <tr key={order.orderId}>
-                <td>{index + 1}</td>
-                <td>{order.orderId}</td>
-                <td>{order.shippingAddress.fullName || "Guest"}</td>
-                <td>{order.total}</td>
-                <td>{order.paymentMethod}</td>
-                <td>{order.shippingAddress.city}</td>
-                <td>{order.itemCount}</td>
-                <td>{order.createdAt.split("T")[0]}</td>
-                <td>{order.deliveryDate.split("T")[0]}</td>
-                <td>
-                  <button
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan="10">Loading...</td>
+              </tr>
+            ) : orders.length > 0 ? (
+              orders.map((order, index) => (
+                <tr key={order.orderId}>
+                  <td>{index + 1}</td>
+                  <td>{order.orderId}</td>
+                  <td>{order.shippingAddress.fullName || "Guest"}</td>
+                  <td>{order.total}</td>
+                  <td>{order.paymentMethod}</td>
+                  <td>{order.shippingAddress.city}</td>
+                  <td>{order.itemCount}</td>
+                  <td>{order.createdAt.split("T")[0]}</td>
+                  <td>{order.deliveryDate.split("T")[0]}</td>
+                  <td>
+                    {/* <button
                     className="update-btn"
                     onClick={() => handleUpdate(order.orderId)}
                   >
                     Update
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(order.orderId)}
-                  >
-                    Delete
-                  </button>
-                </td>
+                  </button> */}
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(order.orderId)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="10">No Orders Found</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="10">No Orders Found</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 

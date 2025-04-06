@@ -61,7 +61,7 @@ function Nav() {
         ) : (
           <></>
         )}
-        {role == "1" ? (
+        {/* {role == "1" ? (
           <li>
             <Link className="nav" to="/order">
               Order
@@ -69,7 +69,7 @@ function Nav() {
           </li>
         ) : (
           <></>
-        )}
+        )} */}
         {role == "1" ? (
           <li>
             <Link className="nav" to="/supplier">
@@ -79,11 +79,15 @@ function Nav() {
         ) : (
           <></>
         )}
-        <li>
-          <Link className="nav" to="/PaymentDetails">
-            Payment
-          </Link>
-        </li>
+        {role == "1" ? (
+          <li>
+            <Link className="nav" to="/PaymentDetails">
+              Payment
+            </Link>
+          </li>
+        ) : (
+          <></>
+        )}
         {role == "1" ? (
           <li>
             <Link className="nav" to="/employee">
