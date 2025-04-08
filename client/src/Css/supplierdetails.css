@@ -1,0 +1,65 @@
+/* Container for supplier details */
+.supplier-container {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+/* Heading */
+.supplier-container h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Supplier table */
+.supplier-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.supplier-table th,
+.supplier-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.supplier-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.supplier-table tr {
+  background-color: #f9f9f9;
+}
+
+/* Action buttons */
+.update-btn,
+.delete-btn {
+  padding: 7px 15px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 10px 5px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+/* Update button */
+.update-btn {
+  background-color: #ffcc00;
+}
+
+.update-btn:hover {
+  background-color: #e6b800;
+}
+
+/* Delete button */
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #a71d2a;
+}

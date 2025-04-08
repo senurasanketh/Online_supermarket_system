@@ -1,0 +1,56 @@
+.employee-container {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  color: #ddd;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.employee-table th,
+.employee-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.employee-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.employee-table tr {
+  background-color: #f9f9f9;
+}
+
+.update-btn,
+.delete-btn {
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.update-btn {
+  background-color: #ffcc00;
+}
+
+.update-btn:hover {
+  background-color: #ffcc00;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #a71d2a;
+}
