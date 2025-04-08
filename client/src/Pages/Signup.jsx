@@ -30,8 +30,9 @@ function Signup() {
     sendRequest()
       .then((response) => {
         alert("Register Success");
-        localStorage.setItem("token", response.token);
-        navigate("/Login");
+        localStorage.setItem("token", response.token); // Store token
+        localStorage.setItem("role", response.role || "2"); // Default to user role "2" if not provided
+        navigate("/Login"); // Redirect to profile instead of login for auto-login
       })
       .catch((err) => {
         alert(err.response?.data?.message || err.message);

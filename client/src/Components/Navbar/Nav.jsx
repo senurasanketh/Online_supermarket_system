@@ -106,7 +106,7 @@ function Nav() {
         ) : (
           <></>
         )}
-        {role == "1" || role == "1" ? (
+        {/* {role == "1" || role == "2" ? (
           <li>
             <Link className="nav" to="/myaccount">
               My Account
@@ -114,7 +114,7 @@ function Nav() {
           </li>
         ) : (
           <></>
-        )}
+        )} */}
       </ul>
 
       <ul>

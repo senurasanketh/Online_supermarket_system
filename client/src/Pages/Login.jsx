@@ -1,4 +1,3 @@
-// components/Login.jsx
 import React, { useState } from "react";
 import "../Css/login.css";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +33,7 @@ function Login() {
         if (response.role === "1") {
           navigate("/dashboard"); // Admin goes to dashboard
         } else if (response.role === "2") {
-          navigate("/"); // User goes to home page
+          navigate("/"); // User goes to profile page (changed from "/")
         } else {
           alert("Unknown role");
         }

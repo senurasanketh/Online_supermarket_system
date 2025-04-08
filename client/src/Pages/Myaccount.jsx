@@ -21,19 +21,33 @@ function Profile() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/users/getallusers",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setUser(response.data);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found. Please log in.");
+      }
+
+      const response = await axios.get("http://localhost:5000/users/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Set user data from response
+      setUser({
+        name: response.data.name || "",
+        email: response.data.email || "",
+        address: response.data.address || "",
+        phoneno: response.data.phoneno || "",
+        profilePicture: response.data.profilePicture || "",
+      });
       setLoading(false);
     } catch (err) {
-      alert("Failed to load profile: " + err.message);
-      navigate("/login");
+      console.error("Profile fetch error:", err);
+      alert(
+        "Failed to load profile: " +
+          (err.response?.data?.message || err.message)
+      );
+      navigate("/login"); // Redirect to login if token is invalid or expired
     }
   };
 
@@ -60,16 +74,22 @@ function Profile() {
     formData.append("profilePicture", newProfilePic);
 
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found. Please log in.");
+      }
+
       const response = await axios.put(
         "http://localhost:5000/users/update-picture",
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
+
       setUser((prevUser) => ({
         ...prevUser,
         profilePicture: response.data.profilePicture,
@@ -78,8 +98,17 @@ function Profile() {
       setNewProfilePic(null); // Reset file input
       alert("Profile picture updated successfully!");
     } catch (err) {
-      alert("Failed to update picture: " + err.message);
+      alert(
+        "Failed to update picture: " +
+          (err.response?.data?.message || err.message)
+      );
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear token
+    localStorage.removeItem("role"); // Clear role
+    navigate("/login"); // Redirect to login
   };
 
   if (loading) {
@@ -188,7 +217,7 @@ function Profile() {
         </div>
 
         <button
-          onClick={() => navigate("/login")}
+          onClick={handleLogout}
           style={{
             backgroundColor: "#e6d600",
             color: "#fff",
