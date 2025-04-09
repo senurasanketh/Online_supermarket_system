@@ -64,6 +64,7 @@ const login = async (req, res) => {
       message: "Login successful",
       token,
       role: user.role, // Send role to frontend
+      user: user, // Send role to frontend
     });
   } catch (error) {
     console.error("Login error:", error);

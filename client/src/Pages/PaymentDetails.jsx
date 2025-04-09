@@ -31,9 +31,9 @@ function PaymentDetails() {
   };
   console.log("orders::> ", orders);
 
-  const handleUpdate = (orderId) => {
-    navigate(`/OrderUpdate/${orderId}`);
-  };
+  // const handleUpdate = (orderId) => {
+  //   navigate(`/OrderUpdate/${orderId}`);
+  // };
 
   const handleDelete = async (orderId) => {
     if (window.confirm("Are you sure you want to delete this order?")) {
@@ -69,7 +69,7 @@ function PaymentDetails() {
           <thead>
             <tr>
               <th>#</th>
-              <th>Order ID</th>
+              {/* <th>Order ID</th> */}
               <th>Customer</th>
               <th>Amount</th>
               <th>Payment Method</th>
@@ -89,12 +89,26 @@ function PaymentDetails() {
               orders.map((order, index) => (
                 <tr key={order.orderId}>
                   <td>{index + 1}</td>
-                  <td>{order.orderId}</td>
+                  {/* <td>{order.orderId}</td> */}
                   <td>{order.shippingAddress.fullName || "Guest"}</td>
                   <td>{order.total}</td>
                   <td>{order.paymentMethod}</td>
                   <td>{order.shippingAddress.city}</td>
-                  <td>{order.itemCount}</td>
+                  <td>
+                    {order.items && Array.isArray(order.items) ? (
+                      <ol className="items-list">
+                        {order.items.map((item, itemIndex) => (
+                          <li key={itemIndex}>
+                            {item.name} - Qty: {item.quantity} - Rs
+                            {(item.price * item.quantity).toFixed(2)}
+                          </li>
+                        ))}
+                      </ol>
+                    ) : (
+                      "No items"
+                    )}
+                  </td>
+                  {/* <td>{order.itemCount}</td> */}
                   <td>{order.createdAt.split("T")[0]}</td>
                   <td>{order.deliveryDate.split("T")[0]}</td>
                   <td>
@@ -106,7 +120,7 @@ function PaymentDetails() {
                   </button> */}
                     <button
                       className="delete-btn"
-                      onClick={() => handleDelete(order.orderId)}
+                      onClick={() => handleDelete(order._id)}
                     >
                       Delete
                     </button>
