@@ -83,7 +83,7 @@ function PaymentDetails() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="10">Loading...</td>
+                <td colSpan="10">Loading..</td>
               </tr>
             ) : orders.length > 0 ? (
               orders.map((order, index) => (
