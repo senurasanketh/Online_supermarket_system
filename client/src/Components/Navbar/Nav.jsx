@@ -14,8 +14,9 @@ function Nav() {
   }, []);
 
   function logOutFunc() {
-    localStorage.removeItem("Users");
-    localStorage.removeItem("Role");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
     navigate("/Login");
     window.location.reload();
   }
@@ -106,7 +107,7 @@ function Nav() {
         ) : (
           <></>
         )}
-        {/* {role == "1" || role == "2" ? (
+        {role == "1" || role == "2" ? (
           <li>
             <Link className="nav" to="/myaccount">
               My Account
@@ -114,7 +115,7 @@ function Nav() {
           </li>
         ) : (
           <></>
-        )} */}
+        )}
       </ul>
 
       <ul>

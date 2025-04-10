@@ -59,3 +59,18 @@ exports.getAllOrders = async (req, res) => {
     });
   }
 };
+
+const deletePayment = async (req, res, next) => {
+  const id = req.params.id;
+  let orders;
+  try {
+    orders = await Order.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+  }
+  if (!orders) {
+    return res.status(404).send({ message: "unable to order" });
+  }
+  return res.status(200).json({ orders });
+};
+exports.deletePayment = deletePayment;

@@ -25,7 +25,8 @@ function Login() {
       // Check if token exists (indicating success)
       if (response.token) {
         localStorage.setItem("token", response.token); // Store JWT
-        localStorage.setItem("role", response.role); // Store role
+        localStorage.setItem("role", response.role); // Store JWT
+        localStorage.setItem("user", JSON.stringify(response.user)); // store user details
 
         alert("Login successful");
 
